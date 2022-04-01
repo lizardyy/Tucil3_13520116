@@ -133,8 +133,11 @@ public class fifteenPuzzle extends JPanel {
     // tiles can solve
     public boolean isSolvable(){
         int sum = kurang() + positionBlankPos();
-        System.out.println("Nilai Kurang(i) :" + kurang());
-        System.out.println("Kurang(i) + X   :" + sum);
+        if(sum %2 ==0){
+            System.out.println("Nilai Kurang(i) :" + kurang());
+            System.out.println("Kurang(i) + X   :" + sum);
+        }
+        
         return (sum) %2 ==0;
     }
 
