@@ -132,7 +132,10 @@ public class fifteenPuzzle extends JPanel {
 
     // tiles can solve
     public boolean isSolvable(){
-        return (kurang() + positionBlankPos()) %2 ==0;
+        int sum = kurang() + positionBlankPos();
+        System.out.println("Nilai Kurang(i) :" + kurang());
+        System.out.println("Kurang(i) + X   :" + sum);
+        return (sum) %2 ==0;
     }
 
     // daraw the grid
@@ -214,6 +217,7 @@ public class fifteenPuzzle extends JPanel {
     // function solution
     public void solution(){
         // menampung command sementara
+        long nano_startTime = System.nanoTime();
         Vector<String> tempCommand = new Vector<>();
         solutionCommand.clear();
         pq.clear();
@@ -223,6 +227,7 @@ public class fifteenPuzzle extends JPanel {
         while(!isSolve(tiles)){
             tempTiles = this.tiles.clone();
             blankPos = findBlankPos(tempTiles);
+            // jika pq empty
             if(pq.isEmpty()){
                 if (boolUp()){
                     tempCommand.add("up");
@@ -277,6 +282,7 @@ public class fifteenPuzzle extends JPanel {
                     compare++;
                 }
             }
+            // jika tidak empty
             else{
                 State temp = pq.poll();
                 commandTemp(temp.command);
@@ -338,13 +344,24 @@ public class fifteenPuzzle extends JPanel {
             }
         }
 
+        long nano_endTime = System.nanoTime();
+        System.out.println("Time taken in nano seconds      : "
+                           + (nano_endTime - nano_startTime));
+        System.out.println("jumlah simpul yang dibangkitkan : " + compare);
+        System.out.print("command Move :");
+        for (int j = 0; j < tempCommand.size(); j++) {
+            System.out.print(" " + tempCommand.get(j));
+            if(j != tempCommand.size() - 1){
+                System.out.print(",");
+            }
+        }
+        System.out.println();
         // state solve
         this.solutionCommand = new Vector<>(tempCommand);
         blankPos = findBlankPos(tiles);
         for (int j=0;j<tempCommand.size();j++){
             command(tempCommand.get(j));
         }
-        System.out.println("compare: " + compare);
     }
 
     public int findBlankPos(int[] array){

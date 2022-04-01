@@ -19,7 +19,7 @@ public class Main {
         System.out.print(">>> ");
         String str;
         str = sc.nextLine();
-        while(!str.equals("quit")){
+        while(!str.equals("QUIT")){
 
             if(str.equals("SOLUTION")){
                 game.solution();
@@ -38,6 +38,7 @@ public class Main {
                 System.out.println("RANDOM      : Melakukan pengacakan pada puzzle");
                 System.out.println("INPUTTEST   : Melakukan input puzzle dari file di dalam folder test");
                 System.out.println("SOLUTION    : Menjalankan Solusi dari puzle tersebut");
+                System.out.println("QUIT        : Keluar dari program");
                 System.out.println("PS: Program yang dibuat merupakan separuh GUI dan CLI, dimana user akan melakukan input melalui GUI " +
                         "dan Hasil dari input tersebut akan ditampilkan pada GUI fifteenPuzzle");
 
@@ -48,5 +49,6 @@ public class Main {
             System.out.print(">>> ");
             str = sc.nextLine();
         }
+        System.exit(0);
     }
 }
