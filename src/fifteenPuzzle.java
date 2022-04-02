@@ -367,52 +367,49 @@ public class fifteenPuzzle extends JPanel {
                     commandTemp("up");
                     tempCost = cost(tempTiles)+ tempCommand.size();
                     pq.add(new State(tempCost,tempCommand));
-
+                    compare++;
                     if (isSolve(tempTiles)){
                         break;
                     }
                     commandTemp("down");
                     tempCommand.clear();
-                    compare++;
                 }
                 if(boolDown()){
                     tempCommand.add("down");
                     commandTemp("down");
                     tempCost = cost(tempTiles)+ tempCommand.size();
                     pq.add(new State(tempCost,tempCommand));
-
+                    compare++;
                     if (isSolve(tempTiles)){
                         break;
                     }
                     commandTemp("up");
                     tempCommand.clear();
-                    compare++;
                 }
                 if(boolRight()){
                     tempCommand.add("right");
                     commandTemp("right");
                     tempCost = cost(tempTiles)+ tempCommand.size();
                     pq.add(new State(tempCost,tempCommand));
-
+                    compare++;
                     if (isSolve(tempTiles)){
                         break;
                     }
                     commandTemp("left");
                     tempCommand.clear();
-                    compare++;
                 }
                 if(boolLeft()){
                     tempCommand.add("left");
                     commandTemp("left");
                     tempCost = cost(tempTiles)+ tempCommand.size();
                     pq.add(new State(tempCost,tempCommand));
-
+                    compare++;
                     if (isSolve(tempTiles)){
                         break;
                     }
                     commandTemp("right");
                     tempCommand.clear();
-                    compare++;
+
                 }
             }
             // jika tidak empty
@@ -424,54 +421,49 @@ public class fifteenPuzzle extends JPanel {
                     tempCommand.add("up");
                     commandTemp("up");
                     tempCost = cost(tempTiles)+ tempCommand.size();
-
                     pq.add(new State(tempCost,tempCommand));
-
+                    compare++;
                     if (isSolve(tempTiles)){
                         break;
                     }
                     commandTemp("down");
                     tempCommand.remove(tempCommand.size()-1);
-                    compare++;
                 }
                 if(boolDown()&&!tempCommand.get(tempCommand.size()-1).equals("up")){
                     tempCommand.add("down");
                     commandTemp("down");
                     tempCost = cost(tempTiles)+ tempCommand.size();
                     pq.add(new State(tempCost,tempCommand));
-
+                    compare++;
                     if (isSolve(tempTiles)){
                         break;
                     }
                     commandTemp("up");
                     tempCommand.remove(tempCommand.size()-1);
-                    compare++;
                 }
                 if(boolRight()&&!tempCommand.get(tempCommand.size()-1).equals("left")){
                     tempCommand.add("right");
                     commandTemp("right");
                     tempCost = cost(tempTiles)+ tempCommand.size();
                     pq.add(new State(tempCost,tempCommand));
-
+                    compare++;
                     if (isSolve(tempTiles)){
                         break;
                     }
                     commandTemp("left");
                     tempCommand.removeElementAt(tempCommand.size()-1);
-                    compare++;
                 }
                 if(boolLeft()&&!tempCommand.get(tempCommand.size()-1).equals("right")){
                     tempCommand.add("left");
                     commandTemp("left");
                     tempCost = cost(tempTiles)+ tempCommand.size();
                     pq.add(new State(tempCost,tempCommand));
-
+                    compare++;
                     if (isSolve(tempTiles)){
                         break;
                     }
                     commandTemp("right");
                     tempCommand.remove(tempCommand.size()-1);
-                    compare++;
                 }
 
             }
