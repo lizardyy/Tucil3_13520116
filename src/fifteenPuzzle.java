@@ -67,6 +67,7 @@ public class fifteenPuzzle extends JPanel {
             tiles[i] = i+1;
             tempTiles[i] = i+1;
         }
+        blankPos = 15;
     }
 
     public void shuffle(){
@@ -133,11 +134,8 @@ public class fifteenPuzzle extends JPanel {
     // tiles can solve
     public boolean isSolvable(){
         int sum = kurang() + positionBlankPos();
-        if(sum %2 ==0){
-            System.out.println("Nilai Kurang(i) :" + kurang());
-            System.out.println("Kurang(i) + X   :" + sum);
-        }
-        
+        System.out.println("Nilai Kurang(i) :" + kurang());
+        System.out.println("Kurang(i) + X   :" + sum);
         return (sum) %2 ==0;
     }
 
