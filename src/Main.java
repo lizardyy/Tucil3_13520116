@@ -15,6 +15,12 @@ public class Main {
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });
+        System.out.println("  ____  _       _                _____ _  __ _                  ____                _      ");
+        System.out.println(" |  _ \\(_)_ __ | | ___   _      |  ___(_)/ _| |_ ___  ___ _ __ |  _ \\ _   _ _______| | ___ ");
+        System.out.println(" | |_) | | '_ \\| |/ / | | |_____| |_  | | |_| __/ _ \\/ _ \\ '_ \\| |_) | | | |_  /_  / |/ _ \\");
+        System.out.println(" |  __/| | | | |   <| |_| |_____|  _| | |  _| ||  __/  __/ | | |  __/| |_| |/ / / /| |  __/");
+        System.out.println(" |_|   |_|_| |_|_|\\_\\\\__, |     |_|   |_|_|  \\__\\___|\\___|_| |_|_|    \\__,_/___/___|_|\\___|");
+        System.out.println("                     |___/                                                                 ");
         Scanner sc = new Scanner(System.in);
         System.out.print(">>> ");
         String str;
@@ -37,10 +43,11 @@ public class Main {
                 System.out.println("===============================================");
                 System.out.println("RANDOM      : Melakukan pengacakan pada puzzle");
                 System.out.println("INPUTTEST   : Melakukan input puzzle dari file di dalam folder test");
-                System.out.println("SOLUTION    : Menjalankan Solusi dari puzle tersebut");
+                System.out.println("SOLUTION    : Menjalankan Solusi dari puzzle tersebut");
                 System.out.println("QUIT        : Keluar dari program");
+                System.out.println("HELP        : Menampilkan command apa saja yang bisa digunakan");
                 System.out.println("PS: Program yang dibuat merupakan separuh GUI dan CLI, dimana user akan melakukan input melalui GUI " +
-                        "dan Hasil dari input tersebut akan ditampilkan pada GUI fifteenPuzzle");
+                        "dan Hasil dari input tersebut akan ditampilkan pada GUI fifteen Puzzle");
 
             }
             else{

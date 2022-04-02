@@ -14,20 +14,20 @@ public class fifteenPuzzle extends JPanel {
     private int nTiles;
     // UI
     private int dimension;
-
     private int margin;
+    private int gridSize;
+    private int tileSize;
     // color
     private static final Color FOREGROUND_COLOR = new Color(255,182,213);
     private static final Color BACKGROUND_COLOR = new Color(255,217,225);
     private static final Random randomNumber = new Random();
-
+    // menampung hasil isSolveable
     private boolean can_Solve;
-
+    // list untuk menampung puzzle
     private int[] tiles;
+    // posisi blankPos(kotak kosong)
     private int blankPos;
-
-    private int gridSize;
-    private int tileSize;
+    // jika game sudah diselesaikan
     private boolean gameOver;
 
     // for solution
@@ -35,7 +35,7 @@ public class fifteenPuzzle extends JPanel {
     private Vector<String> solutionCommand = new Vector<>();
     private int[] tempTiles;
 
-    // create fifteen puzzle
+    // constructor fifteen puzzle
     public fifteenPuzzle(int dimension, int margin){
         this.dimension = dimension;
         this.margin = margin;
@@ -53,6 +53,7 @@ public class fifteenPuzzle extends JPanel {
         setDefault();
     }
 
+    // newGame random puzzle
     public void newGame(){
         do{
             setDefault();
@@ -61,6 +62,7 @@ public class fifteenPuzzle extends JPanel {
         repaint();
     }
 
+    // set default puzzle
     public void setDefault(){
         for(int i=0;i<16;i++)
         {
@@ -70,6 +72,7 @@ public class fifteenPuzzle extends JPanel {
         blankPos = 15;
     }
 
+    // shuffle puzzle
     public void shuffle(){
         int i =0;
         while(i<25){
@@ -139,7 +142,7 @@ public class fifteenPuzzle extends JPanel {
         return (sum) %2 ==0;
     }
 
-    // daraw the grid
+    // draw the grid
     public void drawGrid(Graphics2D grid){
         for (int i =0; i< tiles.length;i++){
             int row = i/size;
@@ -166,18 +169,8 @@ public class fifteenPuzzle extends JPanel {
         }
     }
 
-    private void drawStartMessage(Graphics2D g) {
-        if (gameOver) {
-            g.setFont(getFont().deriveFont(Font.BOLD, 18));
-            g.setColor(FOREGROUND_COLOR);
-            String s = "random";
-            g.drawString(s, (100) / 2,
-                    getHeight() - margin);
-        }
-    }
-
+    // draw number puzzle
     private void drawCenteredString(Graphics2D g, String s, int x, int y) {
-        // center string s for the given tile (x,y)
         FontMetrics fm = g.getFontMetrics();
         int asc = fm.getAscent();
         int desc = fm.getDescent();
@@ -185,6 +178,7 @@ public class fifteenPuzzle extends JPanel {
                 y + (asc + (tileSize-10 - (asc + desc)) / 2));
     }
 
+    // read from file in folder Test
     public void readFile(String file){
         String filePath = "../test/"+ file;
         try{
@@ -215,6 +209,144 @@ public class fifteenPuzzle extends JPanel {
         }
         repaint();
     }
+
+    // find position blankPos
+    public int findBlankPos(int[] array){
+        for(int i=0;i<16;i++){
+            if (array[i]==16){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // cost command
+    public int cost(int[] temp){
+        int cost = 0;
+        for(int i= 0;i<temp.length;i++){
+            if(temp[i]!=i+1 &&  temp[i] != 16){
+                cost++;
+            }
+        }
+        return cost;
+    }
+
+    // move puzzle
+    private void commandTemp(String command) {
+        int temp;
+        if (command.equals("up")) {
+            temp = tempTiles[blankPos - 4];
+            tempTiles[blankPos - 4] = tempTiles[blankPos];
+            tempTiles[blankPos] = temp;
+            blankPos = blankPos - 4;
+        } else if (command.equals("down")) {
+            temp = tempTiles[blankPos + 4];
+            tempTiles[blankPos + 4] = tempTiles[blankPos];
+            tempTiles[blankPos] = temp;
+            blankPos = blankPos + 4;
+        } else if (command.equals("left")) {
+            temp = tempTiles[blankPos - 1];
+            tempTiles[blankPos - 1] = tempTiles[blankPos];
+            tempTiles[blankPos] = temp;
+            blankPos = blankPos - 1;
+        } else if (command.equals("right")) {
+            temp = tempTiles[blankPos + 1];
+            tempTiles[blankPos + 1] = tempTiles[blankPos];
+            tempTiles[blankPos] = temp;
+            blankPos = blankPos + 1;
+        } else {
+            System.out.println("invalid Command");
+        }
+    }
+
+    // overloading
+    private void commandTemp(Vector<String> vectorCommand) {
+        int temp;
+        String command;
+        for(int i =0;i<vectorCommand.size();i++){
+            command = vectorCommand.get(i);
+            if (command.equals("up")) {
+                temp = tempTiles[blankPos - 4];
+                tempTiles[blankPos - 4] = tempTiles[blankPos];
+                tempTiles[blankPos] = temp;
+                blankPos = blankPos - 4;
+            } else if (command.equals("down")) {
+                temp = tempTiles[blankPos + 4];
+                tempTiles[blankPos + 4] = tempTiles[blankPos];
+                tempTiles[blankPos] = temp;
+                blankPos = blankPos + 4;
+            } else if (command.equals("left")) {
+                temp = tempTiles[blankPos - 1];
+                tempTiles[blankPos - 1] = tempTiles[blankPos];
+                tempTiles[blankPos] = temp;
+                blankPos = blankPos - 1;
+            } else if (command.equals("right")) {
+                temp = tempTiles[blankPos + 1];
+                tempTiles[blankPos + 1] = tempTiles[blankPos];
+                tempTiles[blankPos] = temp;
+                blankPos = blankPos + 1;
+            } else {
+                System.out.println("invalid Command");
+            }
+        }
+    }
+
+    //command tile
+    public void command(String command){
+        int temp;
+        // wait 1 second
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        }
+        catch(InterruptedException ex) {
+        }
+        if(command.equals("up")){
+            temp = tiles[blankPos-4];
+            tiles[blankPos-4] = tiles[blankPos];
+            tiles[blankPos] = temp;
+            blankPos = blankPos-4;
+        }
+        else if(command.equals("down")){
+            temp = tiles[blankPos+4];
+            tiles[blankPos+4] = tiles[blankPos];
+            tiles[blankPos] = temp;
+            blankPos = blankPos+4;
+        }
+        else if(command.equals("left")){
+            temp = tiles[blankPos-1];
+            tiles[blankPos-1] = tiles[blankPos];
+            tiles[blankPos] = temp;
+            blankPos = blankPos-1;
+        }
+        else if(command.equals("right")){
+            temp = tiles[blankPos+1];
+            tiles[blankPos+1] = tiles[blankPos];
+            tiles[blankPos] = temp;
+            blankPos = blankPos+1;
+        }
+        else{
+            System.out.println("invalid Command");
+        }
+        this.repaint();
+    }
+
+    // boolean move left
+    public boolean boolLeft(){
+        return blankPos % 4 != 0;
+    }
+    // boolean move right
+    public boolean boolRight(){
+        return blankPos % 4 != 3;
+    }
+    //// boolean move up
+    public boolean boolUp(){
+        return blankPos-4>=0;
+    }
+    // boolean move down
+    public boolean boolDown(){
+        return blankPos+4<16;
+    }
+
     // function solution
     public void solution(){
         // menampung command sementara
@@ -365,134 +497,6 @@ public class fifteenPuzzle extends JPanel {
         }
     }
 
-    public int findBlankPos(int[] array){
-        for(int i=0;i<16;i++){
-            if (array[i]==16){
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    // cost command
-    public int cost(int[] temp){
-        int cost = 0;
-        for(int i= 0;i<temp.length;i++){
-            if(temp[i]!=i+1 &&  temp[i] != 16){
-                cost++;
-            }
-        }
-        return cost;
-    }
-    private void commandTemp(Vector<String> vectorCommand) {
-        int temp;
-        String command;
-        for(int i =0;i<vectorCommand.size();i++){
-            command = vectorCommand.get(i);
-            if (command.equals("up")) {
-                temp = tempTiles[blankPos - 4];
-                tempTiles[blankPos - 4] = tempTiles[blankPos];
-                tempTiles[blankPos] = temp;
-                blankPos = blankPos - 4;
-            } else if (command.equals("down")) {
-                temp = tempTiles[blankPos + 4];
-                tempTiles[blankPos + 4] = tempTiles[blankPos];
-                tempTiles[blankPos] = temp;
-                blankPos = blankPos + 4;
-            } else if (command.equals("left")) {
-                temp = tempTiles[blankPos - 1];
-                tempTiles[blankPos - 1] = tempTiles[blankPos];
-                tempTiles[blankPos] = temp;
-                blankPos = blankPos - 1;
-            } else if (command.equals("right")) {
-                temp = tempTiles[blankPos + 1];
-                tempTiles[blankPos + 1] = tempTiles[blankPos];
-                tempTiles[blankPos] = temp;
-                blankPos = blankPos + 1;
-            } else {
-                System.out.println("invalid Command");
-            }
-        }
-    }
-    private void commandTemp(String command) {
-        int temp;
-        if (command.equals("up")) {
-            temp = tempTiles[blankPos - 4];
-            tempTiles[blankPos - 4] = tempTiles[blankPos];
-            tempTiles[blankPos] = temp;
-            blankPos = blankPos - 4;
-        } else if (command.equals("down")) {
-            temp = tempTiles[blankPos + 4];
-            tempTiles[blankPos + 4] = tempTiles[blankPos];
-            tempTiles[blankPos] = temp;
-            blankPos = blankPos + 4;
-        } else if (command.equals("left")) {
-            temp = tempTiles[blankPos - 1];
-            tempTiles[blankPos - 1] = tempTiles[blankPos];
-            tempTiles[blankPos] = temp;
-            blankPos = blankPos - 1;
-        } else if (command.equals("right")) {
-            temp = tempTiles[blankPos + 1];
-            tempTiles[blankPos + 1] = tempTiles[blankPos];
-            tempTiles[blankPos] = temp;
-            blankPos = blankPos + 1;
-        } else {
-            System.out.println("invalid Command");
-        }
-    }
-    public void command(String command){
-        int temp;
-        // wait 1 second
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        }
-        catch(InterruptedException ex) {
-        }
-        if(command.equals("up")){
-            temp = tiles[blankPos-4];
-            tiles[blankPos-4] = tiles[blankPos];
-            tiles[blankPos] = temp;
-            blankPos = blankPos-4;
-        }
-        else if(command.equals("down")){
-            temp = tiles[blankPos+4];
-            tiles[blankPos+4] = tiles[blankPos];
-            tiles[blankPos] = temp;
-            blankPos = blankPos+4;
-        }
-        else if(command.equals("left")){
-            temp = tiles[blankPos-1];
-            tiles[blankPos-1] = tiles[blankPos];
-            tiles[blankPos] = temp;
-            blankPos = blankPos-1;
-        }
-        else if(command.equals("right")){
-            temp = tiles[blankPos+1];
-            tiles[blankPos+1] = tiles[blankPos];
-            tiles[blankPos] = temp;
-            blankPos = blankPos+1;
-        }
-        else{
-            System.out.println("invalid Command");
-        }
-//        this.updateUI();
-        this.repaint();
-    }
-
-    public boolean boolLeft(){
-        return blankPos % 4 != 0;
-    }
-    public boolean boolRight(){
-        return blankPos % 4 != 3;
-    }
-
-    public boolean boolUp(){
-        return blankPos-4>=0;
-    }
-
-    public boolean boolDown(){
-        return blankPos+4<16;
-    }
 
     @Override
     public void paintComponent(Graphics g) {
