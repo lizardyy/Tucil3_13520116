@@ -36,6 +36,20 @@ QUIT        : Keluar dari program
 HELP        : Menampilkan daftar command yang ada
 ```
 
+## Meng*compile* Ulang
+
+lakukan command berikut pada terminal, pertama masuk ke dalam folder bin
+
+```
+cd src
+```
+kemudian lakukan command berikut untuk meng*compile* ulang
+```
+javac Main.java fifteenPuzzle.java State.java
+```
+
+jalankan **java Main** pada terminal direktori src, jika ingin menjalankan program hasil compile yang baru
+
 # !!!!Tentang Kode!!!!
 
-Pada program jika ingi melakukan command **INPUTTEST** perlu diperhatikan file test yang bisa dibaca hanya pada folder test.
+Pada program jika ingi melakukan command **INPUTTEST** perlu diperhatikan file test yang bisa dibaca hanya pada folder test. Kemudian, setiap pergerakan ubin dari puzzle pada gui diberikan delay 1 detik setiap move nya. Pastikan hal tersebut sudah selesai (command SOLUTION sudah berakhir), sebelum memberikan command lainnya
