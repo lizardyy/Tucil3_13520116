@@ -13,6 +13,10 @@ NIM   : 13520116
 Kelas : 2
 ```
 
+## Requirement
+
+[java] (https://www.oracle.com/java/technologies/downloads/)
+
 ## Cara Penggunaan
 
 lakukan command berikut pada terminal, pertama masuk ke dalam folder bin
