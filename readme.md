@@ -15,7 +15,7 @@ Kelas : 2
 
 ## Requirement
 
-[java] (https://www.oracle.com/java/technologies/downloads/)
+1. [java](https://www.oracle.com/java/technologies/downloads/)
 
 ## Cara Penggunaan
 
